@@ -1,0 +1,94 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MemoryCleaner.Controls"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="72" d:DesignHeight="72"
+        x:Class="MemoryCleaner.MainWindow"
+        Width="72"
+        Height="72"
+        MinWidth="72"
+        MinHeight="72"
+        MaxWidth="72"
+        MaxHeight="72"
+        Title="MemoryCleaner"
+        Background="Transparent"
+        CanResize="False"
+        ExtendClientAreaToDecorationsHint="False"
+        ShowInTaskbar="False"
+        WindowDecorations="None"
+        Topmost="True"
+        TransparencyLevelHint="Transparent">
+    <Grid PointerPressed="FloatingBall_OnPointerPressed"
+          Width="72"
+          Height="72"
+          Background="Transparent">
+        <controls:MemoryWaveControl x:Name="WaveBall"
+                                    Width="70"
+                                    Height="70"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+        <Ellipse Width="70"
+                 Height="70"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 IsHitTestVisible="False">
+            <Ellipse.Fill>
+                <RadialGradientBrush Center="33%,22%" GradientOrigin="22%,16%" RadiusX="0.9" RadiusY="0.9">
+                    <GradientStop Color="#55FFFFFF" Offset="0" />
+                    <GradientStop Color="#00FFFFFF" Offset="0.48" />
+                    <GradientStop Color="#33000000" Offset="1" />
+                </RadialGradientBrush>
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <Grid RowDefinitions="Auto,Auto"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Margin="0,-2,0,0"
+              Width="64">
+            <TextBlock x:Name="UsageText"
+                       Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       FontSize="19"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       LineHeight="21"
+                       Text="--%" />
+            <Button x:Name="CleanButton"
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    Margin="0,3,0,0"
+                    Width="21"
+                    Height="19"
+                    Padding="0"
+                    Click="CleanButton_OnClick"
+                    FontSize="12"
+                    FontWeight="SemiBold"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Foreground="#FF10264C"
+                    Background="#F2FFFFFF"
+                    CornerRadius="10">
+                <controls:RocketIconControl x:Name="RocketButtonIcon"
+                                            Width="13"
+                                            Height="13"
+                                            FlameProgress="0" />
+            </Button>
+        </Grid>
+
+        <controls:RocketIconControl x:Name="RocketLaunchIcon"
+                                    Width="17"
+                                    Height="20"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0,25,0,0"
+                                    FlameProgress="0"
+                                    IsHitTestVisible="False"
+                                    Opacity="0">
+            <controls:RocketIconControl.RenderTransform>
+                <TranslateTransform X="0" Y="0" />
+            </controls:RocketIconControl.RenderTransform>
+        </controls:RocketIconControl>
+    </Grid>
+</Window>
