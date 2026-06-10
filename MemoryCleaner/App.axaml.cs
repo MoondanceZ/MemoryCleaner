@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using MemoryCleaner.Services;
 using System;
 using System.IO;
 using System.Reflection;
@@ -12,6 +13,7 @@ public partial class App : Application
 {
     private MainWindow? _mainWindow;
     private TrayIcon? _trayIcon;
+    private readonly StartupService _startupService = new();
 
     public override void Initialize()
     {
@@ -53,6 +55,18 @@ public partial class App : Application
             await _mainWindow.CleanAsync();
         };
 
+        var startupItem = new NativeMenuItem("开机启动")
+        {
+            ToggleType = MenuItemToggleType.CheckBox,
+            IsChecked = _startupService.IsEnabled()
+        };
+        startupItem.Click += (_, _) =>
+        {
+            var enabled = !_startupService.IsEnabled();
+            _startupService.SetEnabled(enabled);
+            startupItem.IsChecked = enabled;
+        };
+
         var exitItem = new NativeMenuItem("退出");
         exitItem.Click += (_, _) =>
         {
@@ -70,6 +84,7 @@ public partial class App : Application
             {
                 showItem,
                 cleanItem,
+                startupItem,
                 new NativeMenuItemSeparator(),
                 exitItem
             }
